@@ -1,0 +1,1 @@
+ protoc.exe -I=proto --python_out=python proto/simple.proto

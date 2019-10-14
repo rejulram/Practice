@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message Date {
+    // Year of date . Must be between 1 to 9999 , or 0 if specifying date without year
+    int32 Year = 1;
+    // Moth of year . Must be 1 to 12
+    int32 Month = 2;
+
+    // Day of month . Must be from 1 to 31 valid for Month and year , or 0 
+    // if specifying year/moth where day is not significant
+    int32 Day = 3;
+
+}
