@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Button</title>
+</head>
+
+<body>
+{{if .}}
+    <p><strong>Variable names</strong>{identifiers}<em>values:</em></p>
+    {{range $key,$value:=.}}
+        <p><strong>{{$key}}</strong></p>
+        <ul>{{range $value}}<li><em>{{.}}</em>{{end}}</ul>
+    {{end}}
+{{end}}
+
+<form action="/?lname=Ramakrishnan" method="post">
+    <input type="text" name="fname" placeholder="first name" autofocus autocomplete="off">
+    <input type="submit" name="submit-btn" value="on-the-button">
+</form>
+</body>
+</html>
