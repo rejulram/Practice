@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
+
+	"strconv"
 
 	"github.com/rejulram/Practice/gRPCpractice/greet/greetpb"
 	"google.golang.org/grpc"
@@ -13,17 +16,31 @@ import (
 type server struct{}
 
 func (s *server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
-	fmt.Printf("Greet function is invoked with %v", req)
+	fmt.Printf("\nGreet function is invoked with %v\n", req)
 	firstName := req.GetGreeting().GetFirstName()
-	result := "Hello" + firstName
+	result := "Hello " + firstName
 	res := &greetpb.GreetResponse{
 		Result: result,
 	}
 	return res, nil
 }
 
+func (s *server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb.GreetService_GreetManyTimesServer) error {
+	fmt.Printf("\nGreetManyTimes function is invoked with %v\n", req)
+	firstName := req.GetGreeting().GetFirstName()
+	for i := 0; i < 10; i++ {
+		result := "Hello " + firstName + " number " + strconv.Itoa(i)
+		res := &greetpb.GreetManyTimesResponse{
+			Result: result,
+		}
+		stream.Send(res)
+		time.Sleep(1000 * time.Millisecond)
+	}
+	return nil
+}
+
 func main() {
-	fmt.Println("Hello World")
+	fmt.Println("Initializing Server")
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalln("Not able to listen on port", err)

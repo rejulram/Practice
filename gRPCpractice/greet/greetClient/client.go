@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 
 	"github.com/rejulram/Practice/gRPCpractice/greet/greetpb"
@@ -17,7 +18,17 @@ func main() {
 	}
 	defer cc.Close()
 	c := greetpb.NewGreetServiceClient(cc)
-	fmt.Printf("Created Client: %f", c)
+	//fmt.Printf("Created Client: %f", c)
+	//Unary gRPC call
+	//doUnary(c)
+
+	//Server Steaming gRPC call
+	doServerStreaming(c)
+
+}
+
+func doUnary(c greetpb.GreetServiceClient) {
+	//Unary gRPC Call
 	req := &greetpb.GreetRequest{
 		Greeting: &greetpb.Greeting{
 			FirstName: "Rejul",
@@ -28,5 +39,29 @@ func main() {
 	if err != nil {
 		log.Fatalln("Error while calling GRPC greet", err)
 	}
-	log.Printf("Response from server greet : %v", res.Result)
+	log.Printf("\nResponse from server greet : %v\n", res.Result)
+}
+
+func doServerStreaming(c greetpb.GreetServiceClient) {
+	req := &greetpb.GreetManyTimesRequest{
+		Greeting: &greetpb.Greeting{
+			FirstName: "Rejul",
+			LastName:  "Ramakrishnan",
+		},
+	}
+	resStream, err := c.GreetManyTimes(context.Background(), req)
+	if err != nil {
+		log.Fatalln("Error while calling GRPC GreetManyTimes ", err)
+	}
+	for {
+		msg, err := resStream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalln("Error while calling GRPC GreetManyTimes ", err)
+		}
+		log.Println("Response from GreetManyTimes : ", msg.GetResult())
+	}
+
 }
