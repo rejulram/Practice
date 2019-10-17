@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 
 	"github.com/rejulram/Practice/gRPCpractice/calculator/calculatorpb"
 	"google.golang.org/grpc"
@@ -12,7 +13,7 @@ import (
 
 type server struct{}
 
-func (s *server) Sum(ctx context.Context, req *calculatorpb.SumRequest) (*calculatorpb.SumResponse, error) {
+func (*server) Sum(ctx context.Context, req *calculatorpb.SumRequest) (*calculatorpb.SumResponse, error) {
 	fmt.Printf("\n Sum Request received in server : %v", *req)
 	first := req.GetFirstNumber()
 	second := req.GetSecondNumber()
@@ -21,6 +22,25 @@ func (s *server) Sum(ctx context.Context, req *calculatorpb.SumRequest) (*calcul
 		Result: result,
 	}
 	return res, nil
+}
+
+func (*server) PrimeNumberDecomposition(req *calculatorpb.PrimeNumberDecompositionRequest, stream calculatorpb.CalculatorService_PrimeNumberDecompositionServer) error {
+	fmt.Printf("\n PrimeNumberDecomposition Request received in server : %v", *req)
+	number := req.GetNumber()
+	divisor := int32(2)
+	for number > 1 {
+		if number%divisor == 0 {
+			stream.Send(&calculatorpb.PrimeNumberDecompositionResponse{
+				PrimeNumber: divisor,
+			})
+			number = number / divisor
+		} else {
+			divisor++
+			fmt.Println("Divisor has incremented", divisor)
+		}
+		time.Sleep(1000 * time.Millisecond)
+	}
+	return nil
 }
 
 func main() {
