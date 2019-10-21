@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"time"
 
 	"github.com/rejulram/Practice/gRPCpractice/greet/greetpb"
 	"google.golang.org/grpc"
@@ -23,7 +24,10 @@ func main() {
 	//doUnary(c)
 
 	//Server Steaming gRPC call
-	doServerStreaming(c)
+	//doServerStreaming(c)
+
+	//Client Streaming gRPC call
+	doClientStreaming(c)
 
 }
 
@@ -63,5 +67,52 @@ func doServerStreaming(c greetpb.GreetServiceClient) {
 		}
 		log.Println("Response from GreetManyTimes : ", msg.GetResult())
 	}
+}
 
+func doClientStreaming(c greetpb.GreetServiceClient) {
+	requests := []*greetpb.LongGreetRequest{
+		&greetpb.LongGreetRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Rejul",
+			},
+		},
+		&greetpb.LongGreetRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Anusree",
+			},
+		},
+		&greetpb.LongGreetRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Sikha",
+			},
+		},
+		&greetpb.LongGreetRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Lakshmi",
+			},
+		},
+		&greetpb.LongGreetRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Ramakrishnan",
+			},
+		},
+	}
+
+	stream, err := c.LongGreet(context.Background())
+	if err != nil {
+		log.Fatalln("Error while calling Long greet", err)
+	}
+
+	//Iterrate over slice to send each message individually
+	for _, req := range requests {
+		fmt.Println("Sending request", req)
+		stream.Send(req)
+		time.Sleep(1000 * time.Millisecond)
+	}
+
+	res, err := stream.CloseAndRecv()
+	if err != nil {
+		log.Fatalln("Error while recieving response for Long Greet request", err)
+	}
+	fmt.Println("Long Greeting Response Recieved :", res.GetResult())
 }
