@@ -20,7 +20,8 @@ func main() {
 	defer cc.Close()
 	c := calculatorpb.NewCalculatorServiceClient(cc)
 	//doUnary(c)
-	doServerStraming(c)
+	//doServerStraming(c)
+	doClientStreaming(c)
 }
 
 // Unary call
@@ -56,4 +57,56 @@ func doServerStraming(c calculatorpb.CalculatorServiceClient) {
 		}
 		log.Println("Prime Decomposition :", msg.GetPrimeNumber())
 	}
+}
+
+func doClientStreaming(c calculatorpb.CalculatorServiceClient) {
+	fmt.Println("Starting to do Compute Average  client streaming RPC")
+
+	stream, err := c.ComputeAverage(context.Background())
+	if err != nil {
+		log.Fatalln("Error while calling ComputeAverage RPC", err)
+	}
+
+	/*requests := []*calculatorpb.ComputeAverageRequest{
+		&calculatorpb.ComputeAverageRequest{
+			Number: 10,
+		},
+		&calculatorpb.ComputeAverageRequest{
+			Number: 15,
+		},
+		&calculatorpb.ComputeAverageRequest{
+			Number: 20,
+		},
+		&calculatorpb.ComputeAverageRequest{
+			Number: 25,
+		},
+		&calculatorpb.ComputeAverageRequest{
+			Number: 30,
+		},
+		&calculatorpb.ComputeAverageRequest{
+			Number: 35,
+		},
+	}
+
+	for _, req := range requests {
+		fmt.Println("Sending request", req)
+		if err := stream.Send(req); err != nil {
+			log.Fatalln("Error while client streaming", err)
+		}
+		time.Sleep(1000 * time.Millisecond)
+	} */
+	numbers := []int32{10, 15, 20, 25, 30, 35}
+	for _, number := range numbers {
+		fmt.Println("Sending request", number)
+		if err := stream.Send(&calculatorpb.ComputeAverageRequest{
+			Number: number,
+		}); err != nil {
+			log.Fatalln("Error while sending request to Server", err)
+		}
+	}
+	res, err := stream.CloseAndRecv()
+	if err != nil {
+		log.Fatalln("Error while recieving reponse from from Server", err)
+	}
+	fmt.Println("Computed Average recived from server is ", res.GetAverage())
 }
