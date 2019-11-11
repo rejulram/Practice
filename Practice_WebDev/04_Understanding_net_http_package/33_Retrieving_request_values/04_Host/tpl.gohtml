@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Submit values</title>
+    </head>
+</html>
+<body>
+{{if .Method}}
+    <p>Request Method :<strong>{{.Method}}</strong></p>
+{{end}}
+{{if .URL}}
+    <p><strong>URL :-</strong></p>
+    <ul>
+        <li>Scheme : {{.URL.Scheme}}</li>
+        <li>Opaque : {{.URL.Opaque}}</li>
+        <li>Host   :{{.URL.Host}}</li>
+        <li>Path   :{{.URL.Path}}</li>
+        <li>RawPath:{{.URL.RawPath}}</li>
+        <li>ForceQuery:{{.URL.ForceQuery}}</li>
+        <li>RawQuery : {{.URL.RawQuery}}</li>
+    </ul>
+{{end}}
+{{if .Host}}
+    <p>Requested host : {{.Host}}</p>
+{{end}}
+{{if .Submissions}}
+     <p><strong>Variable Names</strong>{Identifies}<em>and values</em></p>
+    {{range $key,$value := .Submissions}}
+            <p><strong>{{$key}}</strong></p>
+            <ul>{{range $value}}<li><em>{{.}}</em></li>{{end}}</ul>
+    {{end}}
+{{end}} 
+<form action="/" method="post"> 
+    <input type="text" name="fname" placeholder="First Name" autofocus autocomplete="off">
+    <input type="submit" name="submit-btn" value="on the button">
+</form>
+</body>
+</html>

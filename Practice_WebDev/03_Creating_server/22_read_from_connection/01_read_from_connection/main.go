@@ -29,6 +29,6 @@ func handle(conn net.Conn){
 		fmt.Println(ln)
 	}
 	defer conn.Close()
-	// We never get here
+	// We never got here
 	fmt.Println("Code got here")
 }

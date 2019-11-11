@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Submit Input</title>
 </head>
+<body>
 <header>
     {{if .Method}} <p>Request method : <strong>{{.Method}}</strong></p>{{end}}
     {{if .URL}}<p>Request URL :</p>
@@ -38,4 +39,5 @@
     <input type="text" name="fname" placeholder="first name" autofocus autocomplete="off">
     <input type="submit" name="submit-btn" value="on the button">
 </form>
+</body>
 </html>
