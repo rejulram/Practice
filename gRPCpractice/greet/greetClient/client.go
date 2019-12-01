@@ -27,7 +27,10 @@ func main() {
 	//doServerStreaming(c)
 
 	//Client Streaming gRPC call
-	doClientStreaming(c)
+	//doClientStreaming(c)
+
+	//Bi Directional streaming
+	doBiDiStreaming(c)
 
 }
 
@@ -115,4 +118,76 @@ func doClientStreaming(c greetpb.GreetServiceClient) {
 		log.Fatalln("Error while recieving response for Long Greet request", err)
 	}
 	fmt.Println("Long Greeting Response Recieved :", res.GetResult())
+}
+
+func doBiDiStreaming(c greetpb.GreetServiceClient) {
+	fmt.Println("Starting GreetEvery One Client RPC..")
+	// Create a stream invoking the client
+	stream, err := c.GreetEveryone(context.Background())
+	if err != nil {
+		log.Fatalln("Error while creating client stream", err)
+	}
+	requests := []*greetpb.GreetEveryoneRequest{
+		&greetpb.GreetEveryoneRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Rejul",
+				LastName:  "Ramakrishnan",
+			},
+		},
+		&greetpb.GreetEveryoneRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Ramesh",
+				LastName:  "Sundaram",
+			},
+		},
+		&greetpb.GreetEveryoneRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Rupak",
+				LastName:  "Behra",
+			},
+		},
+		&greetpb.GreetEveryoneRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Aniket",
+				LastName:  "Mani",
+			},
+		},
+		&greetpb.GreetEveryoneRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: "Ananth",
+				LastName:  "G",
+			},
+		},
+	}
+
+	waitc := make(chan int)
+	//Send Streaming data
+	go func() {
+		for _, req := range requests {
+			fmt.Printf("Sending : %v \n", req.GetGreeting().GetFirstName())
+			err := stream.Send(req)
+			if err != nil {
+				log.Fatalln("Error straming data from Client", err)
+				break
+			}
+		}
+		stream.CloseSend()
+	}()
+	// Recieve Streaming Data
+	go func() {
+		for {
+			res, err := stream.Recv()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				log.Fatalln("Error while receiving streaming data from server")
+				break
+			}
+			fmt.Println("Received : ", res.GetResult())
+		}
+		close(waitc)
+	}()
+	//Block Until send receive complete
+	<-waitc
 }
