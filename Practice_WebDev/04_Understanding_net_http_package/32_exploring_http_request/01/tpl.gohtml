@@ -10,7 +10,7 @@
     <p><strong>Variable names</strong>{identifiers}<em>values:</em></p>
     {{range $key,$value:=.}}
         <p><strong>{{$key}}</strong></p>
-        <ul>{{range $value}}<li><em>{{.}}</em>{{end}}</ul>
+        <ul>{{range $value}}<li><em>{{.}}</em></li>{{end}}</ul>
     {{end}}
 {{end}}
 
