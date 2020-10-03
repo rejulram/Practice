@@ -6,19 +6,19 @@ import (
 	"log"
 )
 
-type person struct{
-	First string
-	Last string
+type person struct {
+	First   string
+	Last    string
 	Sayings []string
 }
 
 func main() {
 	p := person{
-		First:"Rejul",
-		Last:"Ramakrishnan",
-		Sayings:[]string{"Hi","Hello","How are you",},
+		First:   "Rejul",
+		Last:    "Ramakrishnan",
+		Sayings: []string{"Hi", "Hello", "How are you"},
 	}
-	bs,err := json.Marshal(p)
+	bs, err := json.Marshal(p)
 	if err != nil {
 		log.Fatalln("Json Marshal error")
 	}

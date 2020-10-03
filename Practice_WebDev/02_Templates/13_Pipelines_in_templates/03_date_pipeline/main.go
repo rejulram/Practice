@@ -10,10 +10,10 @@ import (
 var tpl *template.Template
 
 var fm = template.FuncMap{
-	"fdate" : formatDate,
+	"fdate": formatDate,
 }
 
-func init(){
+func init() {
 	tpl = template.Must(template.New("tpl.gohtml").Funcs(fm).ParseFiles("tpl.gohtml"))
 }
 
@@ -22,7 +22,7 @@ func formatDate(t time.Time) string {
 }
 
 func main() {
-	err := tpl.ExecuteTemplate(os.Stdout,"tpl.gohtml",time.Now())
+	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", time.Now())
 	if err != nil {
 		log.Fatalln(err)
 	}

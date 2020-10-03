@@ -8,14 +8,14 @@ import (
 func TestYears(t *testing.T) {
 	ans := Years(10)
 	if ans != 70 {
-		t.Error("Got:",ans,"Expected : 70")
+		t.Error("Got:", ans, "Expected : 70")
 	}
 }
 
 func TestYearsTwo(t *testing.T) {
 	ans := YearsTwo(20)
 	if ans != 140 {
-		t.Error("Got:",ans,"Expected:140")
+		t.Error("Got:", ans, "Expected:140")
 	}
 }
 
@@ -32,13 +32,13 @@ func ExampleYearsTwo() {
 }
 
 func BenchmarkYears(b *testing.B) {
-	for i:=0; i < b.N;i++{
+	for i := 0; i < b.N; i++ {
 		Years(10)
 	}
 }
 
 func BenchmarkYearsTwo(b *testing.B) {
-	for i:=0 ; i <b.N ; i++ {
+	for i := 0; i < b.N; i++ {
 		YearsTwo(10)
 	}
 }

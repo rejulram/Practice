@@ -5,19 +5,19 @@ import (
 	"math"
 )
 
-type circle struct{
+type circle struct {
 	radius float64
 }
 
-type shape interface{
+type shape interface {
 	area() float64
 }
 
-func (c *circle) area() float64{
-	return math.Pi*c.radius*c.radius
+func (c *circle) area() float64 {
+	return math.Pi * c.radius * c.radius
 }
 
-func info(s shape){
+func info(s shape) {
 	fmt.Println(s.area())
 }
 

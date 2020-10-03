@@ -7,20 +7,22 @@ import (
 )
 
 var tpl *template.Template
-type person struct{
-	Name string
+
+type person struct {
+	Name  string
 	Motto string
 }
-func init(){
+
+func init() {
 	tpl = template.Must(template.ParseFiles("tpl.gohtml"))
 }
 
 func main() {
 	p1 := person{
-		Name: "Buddha",
+		Name:  "Buddha",
 		Motto: "The belief of no beliefs",
 	}
-	err := tpl.ExecuteTemplate(os.Stdout,"tpl.gohtml",p1)
+	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", p1)
 	if err != nil {
 		log.Fatalln(err)
 	}

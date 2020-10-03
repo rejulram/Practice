@@ -7,21 +7,21 @@ import (
 
 func main() {
 	even := make(chan int)
-	odd:= make(chan int)
-	fanin:= make(chan int)
-	go send(even,odd)
-	go recieve(even,odd,fanin)
-	for v:= range fanin{
+	odd := make(chan int)
+	fanin := make(chan int)
+	go send(even, odd)
+	go recieve(even, odd, fanin)
+	for v := range fanin {
 		fmt.Println(v)
 	}
 	fmt.Println("About to exit")
 }
 
-func send(e,o chan<- int)  {
-	for i:=0;i<10;i++{
-		if i%2 == 0{
+func send(e, o chan<- int) {
+	for i := 0; i < 10; i++ {
+		if i%2 == 0 {
 			e <- i
-		}else {
+		} else {
 			o <- i
 		}
 	}
@@ -29,17 +29,17 @@ func send(e,o chan<- int)  {
 	close(o)
 }
 
-func recieve(e,o <-chan int,f chan<- int){
+func recieve(e, o <-chan int, f chan<- int) {
 	var wg sync.WaitGroup
 	wg.Add(2)
-	go func(){
-		for v:= range e{
+	go func() {
+		for v := range e {
 			f <- v
 		}
 		wg.Done()
 	}()
-	go func(){
-		for v:= range o{
+	go func() {
+		for v := range o {
 			f <- v
 		}
 		wg.Done()

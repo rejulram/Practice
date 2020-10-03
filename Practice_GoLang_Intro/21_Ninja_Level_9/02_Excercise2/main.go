@@ -2,12 +2,12 @@ package main
 
 import "fmt"
 
-type person struct{
+type person struct {
 	Name string
 }
 
-func (p *person) speak(){
-	fmt.Println("Hi I am ",p.Name)
+func (p *person) speak() {
+	fmt.Println("Hi I am ", p.Name)
 }
 
 type human interface {

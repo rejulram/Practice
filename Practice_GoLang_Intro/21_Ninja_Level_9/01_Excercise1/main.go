@@ -9,20 +9,20 @@ import (
 var wg sync.WaitGroup
 
 func main() {
-	fmt.Println("OS		:",runtime.GOOS)
+	fmt.Println("OS		:", runtime.GOOS)
 	fmt.Println("Num of CPUs:", runtime.NumCPU())
-	fmt.Println("No of GOroutines:",runtime.NumGoroutine())
+	fmt.Println("No of GOroutines:", runtime.NumGoroutine())
 	wg.Add(2)
-	go func(){
+	go func() {
 		fmt.Println("Hello from one")
 		wg.Done()
 	}()
-	go func(){
+	go func() {
 		fmt.Println("Hello from two")
 		wg.Done()
 	}()
-	fmt.Println("OS		:",runtime.GOOS)
+	fmt.Println("OS		:", runtime.GOOS)
 	fmt.Println("Num of CPUs:", runtime.NumCPU())
-	fmt.Println("No of GOroutines:",runtime.NumGoroutine())
+	fmt.Println("No of GOroutines:", runtime.NumGoroutine())
 	wg.Wait()
 }

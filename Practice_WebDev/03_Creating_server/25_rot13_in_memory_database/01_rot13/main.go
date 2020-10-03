@@ -8,13 +8,13 @@ import (
 )
 
 func main() {
-	li,err := net.Listen("tcp",":8080")
+	li, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		panic(err)
 	}
 	defer li.Close()
-	for{
-		conn,err := li.Accept()
+	for {
+		conn, err := li.Accept()
 		if err != nil {
 			panic(err)
 		}
@@ -22,20 +22,20 @@ func main() {
 	}
 }
 
-func handle(conn net.Conn){
+func handle(conn net.Conn) {
 	defer conn.Close()
 	scanner := bufio.NewScanner(conn)
-	for scanner.Scan(){
+	for scanner.Scan() {
 		s := strings.ToLower(scanner.Text())
 		bs := []byte(s)
 		r := rot13(bs)
-		fmt.Fprintf(conn,"Rotated value : %s-%s \n \n",s,r)
+		fmt.Fprintf(conn, "Rotated value : %s-%s \n \n", s, r)
 	}
 }
 
-func rot13(bs []byte)[]byte {
-	var r13 = make([]byte,len(bs))
-	for i,v := range bs {
+func rot13(bs []byte) []byte {
+	var r13 = make([]byte, len(bs))
+	for i, v := range bs {
 		//Ascii 97- 122
 		if v <= 109 {
 			r13[i] = v + 13

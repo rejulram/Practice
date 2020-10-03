@@ -4,10 +4,10 @@ package word
 import "strings"
 
 //UseCount returns numbers of times the word used in a string.
-func UseCount(s string) map[string] int {
+func UseCount(s string) map[string]int {
 	xs := strings.Fields(s)
 	m := make(map[string]int)
-	for _,v := range xs {
+	for _, v := range xs {
 		m[v]++
 	}
 	return m

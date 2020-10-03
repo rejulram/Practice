@@ -7,62 +7,62 @@ import (
 )
 
 var tpl *template.Template
+
 type Person struct {
 	Name  string
 	Motto string
 }
 
-type Car struct{
-	Manufacture  string
-	Model string
-	Doors int
+type Car struct {
+	Manufacture string
+	Model       string
+	Doors       int
 }
 
-
-func init(){
+func init() {
 	tpl = template.Must(template.ParseFiles("tpl.gohtml"))
 }
 func main() {
-	buddha := Person {
-		Name : "Buddha",
-		Motto : "The belief of non beliefs",
+	buddha := Person{
+		Name:  "Buddha",
+		Motto: "The belief of non beliefs",
 	}
 	gandhi := Person{
-		Name : "Mahatma Gandhi",
-		Motto : "Be the change",
+		Name:  "Mahatma Gandhi",
+		Motto: "Be the change",
 	}
 	mlk := Person{
-		Name : "Martin Luther King ",
-		Motto : "Hetred never ceases with hatred but love alone is healed",
+		Name:  "Martin Luther King ",
+		Motto: "Hetred never ceases with hatred but love alone is healed",
 	}
-	jesus := Person {
-		Name: "Jesus",
+	jesus := Person{
+		Name:  "Jesus",
 		Motto: "Love All",
 	}
-	muhammed := Person {
-		Name : "Muhammed",
-		Motto : "To overcome Evil",
+	muhammed := Person{
+		Name:  "Muhammed",
+		Motto: "To overcome Evil",
 	}
-	ford := Car {
+	ford := Car{
 		Manufacture: "Ford",
-		Model: "Figo",
-		Doors: 4,
+		Model:       "Figo",
+		Doors:       4,
 	}
 	toyota := Car{
 		Manufacture: "Toyota",
-		Model : "Corolla",
-		Doors:4,
+		Model:       "Corolla",
+		Doors:       4,
 	}
-	persons := []Person{buddha,gandhi,mlk,jesus,muhammed}
-	cars := []Car{ford,toyota,}
+	persons := []Person{buddha, gandhi, mlk, jesus, muhammed}
+	cars := []Car{ford, toyota}
 	data := struct {
-		Wisdom []Person
+		Wisdom    []Person
 		Transport []Car
 	}{
 		persons,
 		cars,
 	}
-	err := tpl.ExecuteTemplate(os.Stdout,"tpl.gohtml",data)
+	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", data)
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -8,12 +8,12 @@ func main() {
 	cs := make(chan<- int) // send
 
 	fmt.Println("--------------")
-	fmt.Printf("c\t%T\n",c)
-	fmt.Printf("cr\t%T\n",cr)
-	fmt.Printf("cs\t%T\n",cs)
+	fmt.Printf("c\t%T\n", c)
+	fmt.Printf("cr\t%T\n", cr)
+	fmt.Printf("cs\t%T\n", cs)
 
 	//Generic to specific converts
 	fmt.Println("--------------")
-	fmt.Printf("c\t%T\n",(<-chan int)(c))
-	fmt.Printf("c\t%T\n",(chan<- int)(c))
+	fmt.Printf("c\t%T\n", (<-chan int)(c))
+	fmt.Printf("c\t%T\n", (chan<- int)(c))
 }

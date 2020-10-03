@@ -12,11 +12,11 @@ func main() {
 	fmt.Println("About to exit")
 }
 
-func foo(c chan<- int){
-	c <-42
+func foo(c chan<- int) {
+	c <- 42
 }
 
-func bar(c <-chan int){
+func bar(c <-chan int) {
 	fmt.Println(<-c)
 }
 

@@ -8,10 +8,10 @@ import (
 type hotdog int
 
 func (h hotdog) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w,"Any code you want in this func")
+	fmt.Fprintln(w, "Any code you want in this func")
 }
 
 func main() {
 	var d hotdog
-	http.ListenAndServe(":8080",d)
+	http.ListenAndServe(":8080", d)
 }

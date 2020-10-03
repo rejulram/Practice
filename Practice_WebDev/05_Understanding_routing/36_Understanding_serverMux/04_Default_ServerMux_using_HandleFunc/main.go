@@ -5,15 +5,15 @@ import (
 	"net/http"
 )
 
-func  d(res http.ResponseWriter,req *http.Request){
-	io.WriteString(res,"This dog")
+func d(res http.ResponseWriter, req *http.Request) {
+	io.WriteString(res, "This dog")
 }
 
-func  c(res http.ResponseWriter,req *http.Request){
+func c(res http.ResponseWriter, req *http.Request) {
 	io.WriteString(res, "This is cat")
 }
 func main() {
-	http.HandleFunc("/dog/",d)
-	http.HandleFunc("/cat",c)
-	http.ListenAndServe(":8080",nil)
+	http.HandleFunc("/dog/", d)
+	http.HandleFunc("/cat", c)
+	http.ListenAndServe(":8080", nil)
 }

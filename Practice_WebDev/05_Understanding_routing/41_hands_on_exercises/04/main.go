@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	li,err := net.Listen("tcp",":8080")
+	li, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -27,10 +27,10 @@ func serve(conn net.Conn) {
 	defer conn.Close()
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
-		if text := scanner.Text(); text == ""{
+		if text := scanner.Text(); text == "" {
 			fmt.Println("THIS IS THE END OF THE HTTP REQUEST HEADERS")
-			break;
-		}else {
+			break
+		} else {
 			fmt.Println(text)
 		}
 	}

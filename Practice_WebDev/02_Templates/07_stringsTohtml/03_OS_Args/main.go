@@ -19,14 +19,14 @@ func main() {
 	<title>Hello World</title>
 	</head>
 	<body>
-	<h1>`+name+`</h1>
+	<h1>` + name + `</h1>
 	</body>
 	</html>
 `)
-	nf,err := os.Create("index.html")
+	nf, err := os.Create("index.html")
 	if err != nil {
-		log.Fatal("Unable to create file",err)
+		log.Fatal("Unable to create file", err)
 	}
 	defer nf.Close()
-	io.Copy(nf,strings.NewReader(str))
+	io.Copy(nf, strings.NewReader(str))
 }

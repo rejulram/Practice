@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	ctx,cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	for v:= range gen(ctx){
+	for v := range gen(ctx) {
 		fmt.Println(v)
 		if v == 5 {
 			break
@@ -16,16 +16,17 @@ func main() {
 	}
 }
 
-func gen(ctx context.Context) <-chan int{
+func gen(ctx context.Context) <-chan int {
 	dst := make(chan int)
-	n :=0
-	go func(){
+	n := 0
+	go func() {
 		for {
 			select {
-			case <-ctx.Done() :
+			case <-ctx.Done():
 				return
-			default: dst <- n
-			n++
+			default:
+				dst <- n
+				n++
 			}
 		}
 

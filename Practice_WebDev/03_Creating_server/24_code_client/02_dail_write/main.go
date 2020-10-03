@@ -6,10 +6,10 @@ import (
 )
 
 func main() {
-	conn,err := net.Dial("tcp","localhost:8080")
+	conn, err := net.Dial("tcp", "localhost:8080")
 	if err != nil {
 		panic(err)
 	}
 	defer conn.Close()
-	fmt.Fprintln(conn,"Hello I dialed you")
+	fmt.Fprintln(conn, "Hello I dialed you")
 }

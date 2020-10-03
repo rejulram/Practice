@@ -7,13 +7,13 @@ import (
 
 type canine struct {
 	name string
-	age int
+	age  int
 }
 
 func main() {
 	fido := canine{
-		name : "fido",
-		age : dog.Years(10),
+		name: "fido",
+		age:  dog.Years(10),
 	}
 	fmt.Println(fido)
 	fmt.Println(dog.YearsTwo(20))

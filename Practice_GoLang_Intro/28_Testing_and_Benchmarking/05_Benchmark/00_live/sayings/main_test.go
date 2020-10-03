@@ -7,8 +7,8 @@ import (
 
 func TestGreet(t *testing.T) {
 	s := Greet("Hi")
-	if s != "Hello Rejul"{
-		t.Error("Got :",s,"Expected :","Hello Rejul")
+	if s != "Hello Rejul" {
+		t.Error("Got :", s, "Expected :", "Hello Rejul")
 	}
 }
 
@@ -19,7 +19,7 @@ func ExampleGreet() {
 }
 
 func BenchmarkGreet(b *testing.B) {
-	for i:=0;i < b.N;i++{
+	for i := 0; i < b.N; i++ {
 		Greet("Hi")
 	}
 }
