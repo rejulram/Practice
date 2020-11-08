@@ -2,17 +2,16 @@ package main
 
 import "fmt"
 
-func main(){
+func main() {
 	n := "Bond"
 	switch n {
-	case "Rejul","Bond","James" :
+	case "Rejul", "Bond", "James":
 		fmt.Println("This is Rejul or Bond or James")
-	case "M" :
+	case "M":
 		fmt.Println("This is is M")
-	case "Q" :
+	case "Q":
 		fmt.Println("This is Q")
 	default:
 		fmt.Println("This is default")
 	}
 }
-

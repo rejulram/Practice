@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main(){
+func main() {
 	x := 1
 	for {
 		if x > 10 {
