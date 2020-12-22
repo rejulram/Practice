@@ -27,9 +27,9 @@ type human interface {
 func bar(h human) {
 	switch h.(type) {
 	case person:
-		fmt.Println("I am called through barrrr", h.(person).first)
+		fmt.Println("I am a person and I am called through barrrr", h.(person).first)
 	case secretAgent:
-		fmt.Println("I am called through barrrr", h.(secretAgent).first)
+		fmt.Println("I am a secret agent and  I am called through barrrr", h.(secretAgent).first)
 	}
 	fmt.Println("I am called through bar", h)
 }

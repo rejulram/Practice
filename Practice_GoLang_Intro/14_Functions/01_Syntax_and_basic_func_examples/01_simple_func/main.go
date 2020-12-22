@@ -7,7 +7,7 @@ func main() {
 }
 
 // FUNC Sybtax
-// func (reciever)  identifier (paraameter(s)) (return(s))(){code}
+// func (reciever)  identifier (paraameter(s)) (return(s)){code}
 func foo() {
 	fmt.Println("Hello from Foo")
 }
