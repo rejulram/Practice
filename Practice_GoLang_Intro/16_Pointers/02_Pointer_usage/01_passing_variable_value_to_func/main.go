@@ -5,7 +5,7 @@ import "fmt"
 func main(){
 	x:=42
 	foo(x)
-	fmt.Println("After x=",x)
+	fmt.Println("After foo x=",x)
 }
 
 func foo(y int){
